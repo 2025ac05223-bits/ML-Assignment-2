@@ -1,0 +1,277 @@
+================================================================================
+GIT QUICK REFERENCE - Breast Cancer Classification Project
+================================================================================
+
+Repository: d:\BITS_WILP\Sem 1\ML\Assignment 2
+Author: Parijat Roy <2025ac05223@wilp.bits-pilani.ac.in>
+Branch: master/main
+Commits: 2
+
+================================================================================
+YOUR GIT CONFIGURATION
+================================================================================
+
+Email: 2025ac05223@wilp.bits-pilani.ac.in
+Name: Parijat Roy
+
+Repository Status: Active and Ready
+Files Tracked: 30
+Total Insertions: 5952+
+
+================================================================================
+MOST USED COMMANDS
+================================================================================
+
+Check Status:
+  git status              # See what changed
+  git log --oneline       # See commit history
+
+Make a Commit:
+  git add <file>          # Stage a file
+  git add -A              # Stage all changes
+  git commit -m "message" # Create commit
+
+Create & Switch Branch:
+  git branch feature-name           # Create branch
+  git checkout feature-name         # Switch to branch
+  git checkout -b feature-name      # Create & switch
+
+Push to Remote (when configured):
+  git push                # Push to GitHub/GitLab
+  git pull                # Pull latest changes
+
+================================================================================
+COMMIT MESSAGE GUIDE
+================================================================================
+
+Good Format:
+  git commit -m "Add new feature: model performance visualization"
+
+Bad Format:
+  git commit -m "fixed stuff"
+  git commit -m "update"
+
+Types to Use:
+  feat:    New feature
+  fix:     Bug fix
+  docs:    Documentation
+  refactor: Code cleanup
+  test:    Test changes
+
+Example:
+  git commit -m "feat: Add Breast Cancer dataset migration"
+
+================================================================================
+COMMON WORKFLOWS
+================================================================================
+
+Starting New Work:
+  git checkout -b feature/my-feature    # Create branch
+  # ... make changes ...
+  git add -A                             # Stage changes
+  git commit -m "description"            # Commit
+  git push -u origin feature/my-feature  # Push branch
+
+Viewing Changes:
+  git diff               # Unstaged changes
+  git diff --staged      # Staged changes
+  git log -p             # Commit details with changes
+
+Undoing Changes:
+  git checkout -- <file> # Discard changes in file
+  git reset HEAD <file>  # Unstage file
+  git revert <commit>    # Undo a commit
+
+================================================================================
+BRANCH NAMING CONVENTION
+================================================================================
+
+Feature Work:
+  feature/add-new-model
+  feature/improve-accuracy
+  feature/streamlit-dashboard
+
+Bug Fixes:
+  fix/model-accuracy-issue
+  fix/data-loading-error
+
+Documentation:
+  docs/deployment-guide
+  docs/api-documentation
+
+Maintenance:
+  refactor/model-structure
+  chore/update-dependencies
+
+================================================================================
+IF YOU GET STUCK
+================================================================================
+
+Problem: I made changes but don't know what changed
+  Solution: git status, git diff, git log
+
+Problem: I want to see the commit history
+  Solution: git log --oneline, git log --graph
+
+Problem: I committed something wrong
+  Solution: git revert <commit-hash>, git reset --soft HEAD~1
+
+Problem: I need to sync with remote
+  Solution: git pull, git fetch
+
+Problem: I forgot what my branch is for
+  Solution: git branch, git log origin/main..HEAD
+
+Get Help:
+  git --help                # General help
+  git <command> --help      # Command-specific help
+
+================================================================================
+GITHUB/GITLAB SETUP (WHEN READY)
+================================================================================
+
+Step 1: Create Repository
+  - Go to github.com or gitlab.com
+  - Click "New" or "New Project"
+  - Choose name (e.g., "breast-cancer-classifier")
+  - Leave empty (no README)
+  - Click Create
+
+Step 2: Get Repository URL
+  - Copy HTTPS or SSH URL
+  - Examples:
+    HTTPS: https://github.com/username/breast-cancer-classifier.git
+    SSH:   git@github.com:username/breast-cancer-classifier.git
+
+Step 3: Add Remote
+  git remote add origin <copied-url>
+
+Step 4: Push Code
+  git branch -M main
+  git push -u origin main
+
+Step 5: Authentication
+  - HTTPS: Paste token as password
+  - SSH: Use SSH key
+  - Windows: Use Git Credential Manager
+
+================================================================================
+USEFUL ALIASES (Optional Setup)
+================================================================================
+
+Add to ~/.gitconfig to save typing:
+
+  git config --global alias.st status
+  git config --global alias.co checkout
+  git config --global alias.br branch
+  git config --global alias.ci commit
+  git config --global alias.unstage 'reset HEAD --'
+  git config --global alias.last 'log -1 HEAD'
+  git config --global alias.visual 'log --graph --oneline --all'
+
+Then use:
+  git st          # Instead of git status
+  git co -b feat  # Instead of git checkout -b feat
+  git visual      # Instead of git log --graph --oneline --all
+
+================================================================================
+FILES YOU SHOULD KNOW ABOUT
+================================================================================
+
+Core Files (Do Commit):
+  model_training.py       - Main ML code
+  streamlit_app.py        - Web app code
+  requirements.txt        - Python dependencies
+  model/*.pkl             - Trained models
+
+Documentation (Do Commit):
+  README.md               - Project overview
+  DEPLOYMENT_GUIDE.md     - How to deploy
+  GIT_SETUP.md           - Git guide
+  GIT_STATUS.txt         - Setup status
+
+Configuration (Do NOT Commit):
+  .env                    - Environment variables
+  .vscode/                - IDE settings
+  __pycache__/            - Python cache
+  venv/                   - Virtual environment
+
+================================================================================
+TIPS & TRICKS
+================================================================================
+
+✓ Commit often (small, focused commits)
+✓ Write clear commit messages
+✓ Pull before pushing (git pull)
+✓ Use branches for features
+✓ Never force push to main
+✓ Review changes before committing (git diff)
+✓ Use .gitignore properly (already set up)
+✓ Create meaningful branch names
+
+DO NOT:
+✗ Commit large binary files
+✗ Commit passwords or secrets
+✗ Force push to main branch
+✗ Commit without messages
+✗ Ignore merge conflicts
+
+================================================================================
+GETTING HELP
+================================================================================
+
+Official Resources:
+  https://git-scm.com/doc           - Git documentation
+  https://github.com/               - GitHub (if using GitHub)
+  https://gitlab.com/               - GitLab (if using GitLab)
+
+Command Help:
+  git help <command>                - Help for specific command
+  git --help                        - General Git help
+
+Examples:
+  git help log                      - Learn about git log
+  git help commit                   - Learn about git commit
+  git help branch                   - Learn about git branch
+
+================================================================================
+YOUR NEXT STEPS
+================================================================================
+
+Immediate (Local Development):
+  1. Make code changes
+  2. Review with: git status, git diff
+  3. Stage with: git add -A
+  4. Commit with: git commit -m "description"
+  5. View history with: git log
+
+When Ready (Remote Setup):
+  1. Create repository on GitHub/GitLab
+  2. Add remote: git remote add origin <url>
+  3. Push: git push -u origin main
+  4. Authenticate when prompted
+
+Ongoing:
+  1. Create branches for features
+  2. Commit frequently with clear messages
+  3. Push to remote regularly
+  4. Keep main branch stable
+
+================================================================================
+REMEMBER
+================================================================================
+
+✓ Git is your safety net - it tracks everything
+✓ Commits are permanent (mostly) - write good messages
+✓ Branches are cheap - use them for everything
+✓ Pull before push - avoid conflicts
+✓ Communicate with your team - use descriptive commits
+
+Your project is now under version control.
+You're all set to start collaborating!
+
+================================================================================
+Quick Reference Created: August 13, 2026
+Author: Parijat Roy <2025ac05223@wilp.bits-pilani.ac.in>
+Status: READY
+================================================================================
