@@ -39,7 +39,7 @@ env/
 
 # Streamlit
 .streamlit/
-*.streamlit.app
+# *.streamlit.app (keep app files)
 
 # Model files (if too large, optional)
 # model/*.pkl
