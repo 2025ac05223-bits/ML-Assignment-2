@@ -44,8 +44,7 @@ env/
 # Model files (if too large, optional)
 # model/*.pkl
 
-# Data files (optional)
-*.csv
+# Data files (keep test data and results)
 
 # Temporary files
 *.tmp
