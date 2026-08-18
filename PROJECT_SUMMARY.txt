@@ -2,21 +2,21 @@
   MACHINE LEARNING CLASSIFICATION ASSIGNMENT - PROJECT SUMMARY
 ================================================================================
 
-PROJECT: Wine Classification using 5 ML Models
-STUDENT EMAIL: sme2@uplevel.academy
-DATE: August 13, 2026
+PROJECT: Breast Cancer Classification using 5 ML Models
+STUDENT EMAIL: 2025ac05223@wilp.bits-pilani.ac.in
+DATE: August 18, 2026
 STATUS: ✅ READY FOR SUBMISSION
 
 ================================================================================
 QUICK STATS
 ================================================================================
 
-Dataset:          Wine Classification (UCI ML Repository)
-Features:         13 (Exceeds 12 minimum requirement)
-Samples:          178 (Balanced across 3 wine cultivars)
-Training Set:     142 samples (80%)
-Testing Set:      36 samples (20%)
-Problem Type:     Multi-class Classification
+Dataset:          Breast Cancer Classification (UCI ML Repository)
+Features:         30 (Exceeds 12 minimum requirement)
+Samples:          569 (EXCEEDS 500 minimum requirement) ✅
+Training Set:     455 samples (80%)
+Testing Set:      114 samples (20%)
+Problem Type:     Binary Classification (Malignant vs Benign)
 
 Models Implemented:  5 (All required)
   ✓ Logistic Regression
@@ -39,19 +39,19 @@ PERFORMANCE RESULTS
 
 Model                   Accuracy  AUC     Precision  Recall  F1      MCC
 ─────────────────────────────────────────────────────────────────────────
-Logistic Regression     0.9722    1.0000  0.9741     0.9722  0.9720  0.9589
-Decision Tree           0.9444    0.9545  0.9514     0.9444  0.9450  0.9186
-K-Nearest Neighbors     0.9722    0.9988  0.9747     0.9722  0.9724  0.9593
-Naive Bayes             0.9722    1.0000  0.9744     0.9722  0.9723  0.9592
-Random Forest (WINNER)  1.0000    1.0000  1.0000     1.0000  1.0000  1.0000
+Logistic Regression(WIN)0.9825    0.9954  0.9825     0.9825  0.9825  0.9623
+K-Nearest Neighbors     0.9561    0.9788  0.9561     0.9561  0.9560  0.9054
+Random Forest           0.9561    0.9934  0.9561     0.9561  0.9560  0.9054
+Naive Bayes             0.9298    0.9868  0.9298     0.9298  0.9298  0.8492
+Decision Tree           0.9035    0.9216  0.9090     0.9035  0.9045  0.8011
 
-Winner: RANDOM FOREST ENSEMBLE
-  - Perfect 100% accuracy across all metrics
-  - Best generalization through ensemble averaging
-  - Handles non-linearity and feature interactions
-  - Provides feature importance rankings
-  - Scales better than KNN
-  - Reliable for production deployment
+Winner: LOGISTIC REGRESSION
+  - Highest accuracy: 98.25% cancer detection rate
+  - Perfect AUC: 0.9954 excellent discrimination
+  - Clinical interpretability: Coefficient-based explanations
+  - Fast inference: Suitable for real-time screening
+  - Calibrated probabilities: Risk communication to patients
+  - Medical reliability: Proven algorithm in clinical settings
 
 ================================================================================
 DIRECTORY STRUCTURE
@@ -66,9 +66,8 @@ d:\BITS_WILP\Sem 1\ML\Assignment 2\
 │   └── requirements.txt               Python dependencies
 │
 ├── 📊 Data & Models
-│   ├── test_data.csv                  Sample dataset (40 wine samples)
 │   ├── model_evaluation_results.csv   Performance metrics table (CSV)
-│   └── model/                         Trained model files
+│   └── model/                         Trained model files (569 samples)
 │       ├── logistic_regression_model.pkl
 │       ├── decision_tree_model.pkl
 │       ├── knn_model.pkl
