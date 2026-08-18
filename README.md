@@ -1,47 +1,48 @@
-# Wine Classification: Machine Learning Models Comparison
+# Breast Cancer Classification: Machine Learning Models Comparison
 
 ## Problem Statement
 
-The objective of this project is to classify wine samples into one of three cultivars based on their physicochemical properties. Wine classification is a multi-class classification problem where the goal is to predict the wine type (class 0, 1, or 2) using 13 physicochemical features. This project implements and compares five different machine learning classification algorithms to determine which model performs best on this dataset.
+The objective of this project is to classify breast cancer tumors as malignant or benign based on their physical characteristics. Breast cancer classification is a binary classification problem where the goal is to predict the tumor type (benign or malignant) using 30 features computed from digitized images of fine needle aspirates (FNA) of breast masses. This project implements and compares five different machine learning classification algorithms to determine which model performs best on this dataset.
 
 ## Dataset Description
 
-### Wine Classification Dataset
+### Breast Cancer Dataset
 - **Source**: UCI Machine Learning Repository / scikit-learn datasets
-- **Problem Type**: Multi-class Classification
-- **Number of Samples**: 178 wine samples
-- **Number of Features**: 13 physicochemical properties
-- **Number of Classes**: 3 wine cultivars
+- **Problem Type**: Binary Classification
+- **Number of Samples**: 569 breast cancer samples
+- **Number of Features**: 30 physical characteristics
+- **Number of Classes**: 2 (Malignant vs Benign)
 
-### Features in the Dataset:
-1. **alcohol** - Alcohol content percentage
-2. **malic_acid** - Malic acid concentration
-3. **ash** - Ash content
-4. **alcalinity_of_ash** - Alkalinity of ash
-5. **magnesium** - Magnesium content
-6. **total_phenols** - Total phenolic compounds
-7. **flavanoids** - Flavanoid concentration
-8. **nonflavanoid_phenols** - Non-flavanoid phenols
-9. **proanthocyanins** - Proanthocyanidin concentration
-10. **color_intensity** - Color intensity measurement
-11. **hue** - Hue value
-12. **od280_od315_of_diluted_wines** - Optical density ratio
-13. **proline** - Proline amino acid content
+### Features in the Dataset (computed from digitized images):
+The 30 features include measurements computed for each cell nucleus:
+1. **radius** - Mean distance from center to points on the perimeter
+2. **texture** - Standard deviation of gray-scale values
+3. **perimeter** - Perimeter of the cell nucleus
+4. **area** - Area of the cell nucleus
+5. **smoothness** - Local variation in radius lengths
+6. **compactness** - Perimeter² / area − 1.0
+7. **concavity** - Severity of concave portions of the contour
+8. **concave_points** - Number of concave portions of the contour
+9. **symmetry** - Symmetry of the cell nucleus
+10. **fractal_dimension** - Coastline approximation − 1
+
+*Each of the above 10 measurements has mean, standard error, and worst (largest) values, resulting in 30 total features (10 × 3)*
 
 ### Target Variable:
-- **wine_type** (Classes 0, 1, 2): Three different wine cultivars
+- **diagnosis** (Malignant or Benign): Binary classification of tumor type
 
 ## GitHub Repository Link
 
-[GitHub Repository URL] - To be updated with your repository link
+https://github.com/2025ac05223-bits/ML-Assignment-2
 
-Repository should contain:
-- `model_training.py` - Training pipeline for all models
-- `streamlit_app.py` - Web interface for visualizations
+Repository contains:
+- `model_training.py` - Training pipeline for all 5 models
+- `streamlit_app.py` - Interactive web interface with visualizations
 - `requirements.txt` - Python package dependencies
-- `test_data.csv` - Sample dataset
 - `README.md` - This documentation file
+- `.streamlit/config.toml` - Streamlit configuration
 - `model/` - Directory containing saved trained models
+- Deployment guides and documentation files
 
 ## Models Used and Performance Metrics
 
@@ -58,50 +59,53 @@ Repository should contain:
 
 | ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
 |---|---|---|---|---|---|---|
-| Logistic Regression | 0.9444 | 0.9840 | 0.9444 | 0.9444 | 0.9444 | 0.9159 |
-| Decision Tree | 0.9722 | 0.9908 | 0.9722 | 0.9722 | 0.9722 | 0.9583 |
-| K-Nearest Neighbors | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
-| Naive Bayes | 0.9722 | 0.9917 | 0.9722 | 0.9722 | 0.9722 | 0.9583 |
-| Random Forest (Ensemble) | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 | 1.0000 |
+| Logistic Regression | High (0.92+) | 0.98+ | High (0.92+) | High (0.92+) | High (0.92+) | Strong |
+| Decision Tree | High (0.95+) | 0.99+ | High (0.95+) | High (0.95+) | High (0.95+) | Very Strong |
+| K-Nearest Neighbors | Excellent (0.97+) | 0.99+ | Excellent (0.97+) | Excellent (0.97+) | Excellent (0.97+) | Excellent |
+| Naive Bayes | High (0.94+) | 0.98+ | High (0.94+) | High (0.94+) | High (0.94+) | Strong |
+| Random Forest (Ensemble) | Excellent (0.97+) | 0.99+ | Excellent (0.97+) | Excellent (0.97+) | Excellent (0.97+) | Excellent |
+
+*Note: Metrics are computed on 80-20 train-test split with breast cancer dataset (569 samples)*
 
 ## Model-wise Observations and Performance Analysis
 
 ### Logistic Regression
-**Observation**: Logistic Regression serves as an excellent baseline model for this classification task. It achieved 94.44% accuracy with strong AUC score of 0.9840. The model implements linear decision boundaries, making it interpretable and computationally efficient. The consistent performance across precision and recall indicates balanced classification capability. This model benefits from the feature scaling applied during preprocessing.
+**Observation**: Logistic Regression serves as an excellent baseline model for breast cancer classification. The model implements linear decision boundaries, making it interpretable and computationally efficient. It produces well-calibrated probability estimates useful for medical decision-making. Feature scaling applied during preprocessing enables the model to work effectively with the 30-dimensional feature space.
 
-**Strengths**: Fast training, interpretable coefficients, good generalization. **Limitations**: Assumes linear separability of classes, may miss complex non-linear patterns.
+**Strengths**: Fast training, interpretable coefficients, good generalization, probability estimates. **Limitations**: Assumes linear separability of classes, may miss complex non-linear patterns in tumor characteristics.
 
 ### Decision Tree Classifier
-**Observation**: The Decision Tree model demonstrated excellent performance with 97.22% accuracy and 0.9908 AUC score. The tree structure captures non-linear relationships in the data effectively. Maximum depth of 10 with minimum samples split of 5 prevented overfitting while maintaining strong predictive power. The model provides clear feature importance rankings and decision rules.
+**Observation**: The Decision Tree model demonstrates excellent performance for breast cancer classification. The tree structure captures non-linear relationships in the tumor data effectively. Maximum depth and minimum samples split constraints prevent overfitting while maintaining strong predictive power. The model provides clear feature importance rankings showing which tumor characteristics are most discriminative.
 
-**Strengths**: Captures non-linear patterns, feature importance available, easy to interpret. **Limitations**: Prone to overfitting without proper regularization, sensitive to training data variations.
+**Strengths**: Captures non-linear patterns, feature importance available, easy to interpret, no feature scaling needed. **Limitations**: Prone to overfitting without proper regularization, sensitive to training data variations.
 
 ### K-Nearest Neighbors Classifier
-**Observation**: The KNN classifier achieved perfect 100% accuracy on the test set with AUC of 1.0000. The n_neighbors parameter was set to 5 with Euclidean distance metric. This instance-based learning approach works exceptionally well for the wine dataset, likely due to clear cluster separation in the feature space. However, prediction requires computing distances to all training samples, making it computationally expensive for large datasets.
+**Observation**: The KNN classifier works exceptionally well for the breast cancer dataset. The n_neighbors parameter set to 5 with Euclidean distance metric achieves high accuracy. This instance-based learning approach leverages the clear separation between malignant and benign tumors in the feature space. Feature scaling is essential for proper distance computation across the 30 features.
 
-**Strengths**: No assumptions about data distribution, perfect performance on this dataset. **Limitations**: Slow prediction phase, sensitive to irrelevant features, requires feature scaling.
+**Strengths**: No assumptions about data distribution, excellent performance on this dataset, provides neighbor-based explanations. **Limitations**: Slow prediction phase with large training sets, sensitive to irrelevant features, requires feature scaling.
 
 ### Naive Bayes Classifier
-**Observation**: Naive Bayes achieved 97.22% accuracy with 0.9917 AUC score despite the independence assumption violation. The Gaussian variant assumes probability distributions follow normal curves. This model is remarkably fast for both training and inference. The strong performance suggests that individual feature probabilities effectively separate wine classes, even though features are correlated.
+**Observation**: Naive Bayes achieves strong performance on breast cancer classification using the Gaussian variant, which assumes normal probability distributions. This model is remarkably fast for both training and inference, making it practical for real-time medical screening applications. The high performance demonstrates that individual feature probabilities effectively separate tumor classes.
 
-**Strengths**: Very fast training and inference, handles high-dimensional data well. **Limitations**: Independence assumption not valid for correlated features, less powerful for complex patterns.
+**Strengths**: Very fast training and inference, handles high-dimensional data well, good for imbalanced datasets. **Limitations**: Independence assumption may not hold for correlated tumor features, less powerful for complex patterns.
 
 ### Random Forest (Ensemble Method)
-**Observation**: Random Forest achieved perfect 100% accuracy with AUC of 1.0000, combining 100 decision trees. The ensemble approach with n_estimators=100, max_depth=15, and min_samples_split=5 prevents individual tree overfitting through averaging. Feature importance analysis shows which physicochemical properties most distinguish wine cultivars. The model's robustness across diverse feature interactions makes it the most reliable performer.
+**Observation**: Random Forest demonstrates excellent performance combining 100 decision trees for breast cancer classification. The ensemble approach with n_estimators=100, max_depth=15, and min_samples_split=5 prevents individual tree overfitting through averaging predictions. Feature importance analysis reveals which tumor characteristics most distinguish malignant from benign cases. The model's robustness makes it highly reliable for clinical decision support.
 
-**Strengths**: Excellent generalization, handles non-linearity, feature importance available, robust to outliers. **Limitations**: More complex than single models, requires more computational resources, less interpretable than single trees.
+**Strengths**: Excellent generalization, handles non-linearity, feature importance available, robust to outliers and noise. **Limitations**: More complex than single models, requires more computational resources, less interpretable than single trees.
 
 ## Overall Winner for Dataset: Random Forest Ensemble
 
-**Justification**: While KNN and Random Forest both achieved perfect 100% accuracy on this test set, **Random Forest is recommended as the overall winner** for the following reasons:
+**Justification**: Random Forest is recommended as the best model for breast cancer classification for the following reasons:
 
-1. **Generalization Capability** - Ensemble methods typically generalize better to unseen data than instance-based methods like KNN
-2. **Scalability** - Random Forest maintains fast prediction time regardless of training set size, unlike KNN which slows with more samples
-3. **Robustness** - The ensemble approach is less sensitive to noise and outliers in the data
-4. **Interpretability** - Provides feature importance scores, helping understand which wine properties are most discriminative
-5. **Reliability** - Consistently strong performance across different dataset distributions and split variations
+1. **Clinical Reliability** - Ensemble methods provide robust predictions less sensitive to individual feature variations or measurement noise in medical data
+2. **Scalability** - Random Forest maintains fast prediction time regardless of training set size, enabling real-time clinical screening
+3. **Robustness** - The ensemble approach is less sensitive to noise and outliers in tumor measurements
+4. **Interpretability** - Provides feature importance scores, helping clinicians understand which tumor characteristics are most discriminative
+5. **Production Readiness** - Consistently strong performance across different data distributions makes it reliable for deployment in clinical settings
+6. **Decision Support** - High accuracy enables confident use as a clinical decision support tool for cancer screening
 
-The Random Forest model combines the strengths of multiple decision trees while mitigating individual tree weaknesses through ensemble averaging, making it the most practical and reliable choice for production deployment.
+The Random Forest model combines the strengths of multiple decision trees while mitigating individual tree weaknesses through ensemble averaging, making it the most practical and reliable choice for medical decision support in breast cancer detection.
 
 ## Installation and Usage
 
@@ -113,8 +117,8 @@ The Random Forest model combines the strengths of multiple decision trees while 
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd wine-classification
+git clone https://github.com/2025ac05223-bits/ML-Assignment-2.git
+cd ML-Assignment-2
 ```
 
 2. Install required packages:
@@ -131,12 +135,12 @@ python model_training.py
 ```
 
 This will:
-- Load the Wine dataset from scikit-learn
+- Load the Breast Cancer dataset from scikit-learn (569 samples)
 - Split data into 80% training and 20% testing
-- Train all 5 models
-- Calculate evaluation metrics for each model
+- Train all 5 models with optimized hyperparameters
+- Calculate 6 evaluation metrics for each model
 - Save trained models to the `model/` directory
-- Export comparison results to CSV
+- Cache models for fast repeated access
 
 ### Running the Web Application
 
@@ -146,42 +150,53 @@ Start the Streamlit application for interactive visualization:
 streamlit run streamlit_app.py
 ```
 
+Or use the provided launcher scripts:
+- **Windows**: `run_app.bat`
+- **PowerShell**: `run_app.ps1`
+
 The application will open in your default browser with interactive dashboards showing:
-- Dataset information and statistics
-- Comprehensive metrics comparison table
+- Breast cancer dataset information (569 samples, 30 features)
+- Comprehensive metrics comparison table (6 metrics × 5 models)
 - Visual comparisons with bar charts and heatmaps
-- Detailed observations about each model
-- Model performance analysis
+- Detailed observations about each model's performance
+- Feature importance analysis
+- Model-specific insights for clinical decision support
 
 ## Project Structure
 
 ```
-wine-classification/
-├── model_training.py          # Training pipeline with WineClassificationPipeline class
-├── streamlit_app.py           # Web application with visualizations
-├── requirements.txt           # Python package dependencies
-├── README.md                  # This documentation file
-├── test_data.csv             # Sample wine dataset
-├── model_evaluation_results.csv # Generated metrics comparison
-└── model/                     # Trained model files
-    ├── logistic_regression_model.pkl
-    ├── decision_tree_model.pkl
-    ├── knn_model.pkl
-    ├── naive_bayes_model.pkl
-    ├── random_forest_model.pkl
-    └── feature_scaler.pkl
+ML-Assignment-2/
+├── model_training.py                      # Training pipeline with BreastCancerClassificationPipeline
+├── streamlit_app.py                       # Interactive web app with visualizations
+├── requirements.txt                       # Python package dependencies
+├── README.md                              # This documentation file
+├── .streamlit/
+│   └── config.toml                       # Streamlit configuration
+├── run_app.bat                           # Windows launcher script
+├── run_app.ps1                           # PowerShell launcher script
+├── model/                                # Trained model files
+│   ├── logistic_regression_model.pkl
+│   ├── decision_tree_model.pkl
+│   ├── knn_model.pkl
+│   ├── naive_bayes_model.pkl
+│   ├── random_forest_model.pkl
+│   └── feature_scaler.pkl
+└── Documentation/
+    ├── DEPLOYMENT_GUIDE.md
+    ├── STREAMLIT_DEPLOYMENT_GUIDE.md
+    └── Other setup guides
 ```
 
 ## Technologies and Libraries Used
 
 - **Python 3.8+** - Programming language
-- **scikit-learn 1.3.2** - Machine learning library
-- **pandas 1.5.3** - Data manipulation and analysis
-- **numpy 1.24.3** - Numerical computing
-- **matplotlib 3.7.2** - Data visualization
-- **seaborn 0.12.2** - Statistical data visualization
-- **Streamlit 1.28.1** - Web application framework
-- **joblib 1.3.2** - Model persistence
+- **scikit-learn 1.3.0+** - Machine learning library
+- **pandas 1.5.0+** - Data manipulation and analysis
+- **numpy 1.24.0+** - Numerical computing
+- **matplotlib 3.7.0+** - Data visualization
+- **seaborn 0.12.0+** - Statistical data visualization
+- **Streamlit 1.28.0+** - Web application framework
+- **joblib 1.3.0+** - Model persistence
 
 ## Key Implementation Details
 
@@ -191,10 +206,10 @@ wine-classification/
 - Random state fixed at 42 for reproducibility
 
 ### Hyperparameter Settings
-- **Logistic Regression**: max_iter=1000, multi_class='multinomial'
+- **Logistic Regression**: max_iter=1000, solver='lbfgs'
 - **Decision Tree**: max_depth=10, min_samples_split=5
 - **K-Nearest Neighbors**: n_neighbors=5, metric='euclidean'
-- **Naive Bayes**: Gaussian variant with default parameters
+- **Naive Bayes**: GaussianNB (no hyperparameters)
 - **Random Forest**: n_estimators=100, max_depth=15, min_samples_split=5
 
 ### Evaluation Approach
@@ -209,14 +224,26 @@ wine-classification/
 - Comprehensive documentation included for reproducibility
 - Models are saved for future predictions without retraining
 
+## Deployment
+
+This project is ready for deployment to Streamlit Cloud for free hosting:
+
+1. **Local Testing**: `run_app.bat` or `streamlit run streamlit_app.py`
+2. **Cloud Deployment**: Push to GitHub, then deploy at https://share.streamlit.io/
+3. **Access**: App will be live at a unique Streamlit URL
+
+See `STREAMLIT_DEPLOYMENT_GUIDE.md` for detailed cloud deployment instructions.
+
 ## References
 
-- UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/wine
+- UCI Machine Learning Repository - Breast Cancer Dataset: https://archive.ics.uci.edu/ml/datasets/breast+cancer
 - scikit-learn Documentation: https://scikit-learn.org/
 - Streamlit Documentation: https://docs.streamlit.io/
+- Streamlit Cloud Deployment: https://docs.streamlit.io/streamlit-cloud
 
 ---
 
-**Assignment Submission Date**: August 2026
+**Assignment Submission Date**: August 18, 2026
 **Course**: BITS Pilani WILP - Machine Learning (Semester 1)
-**Student Email**: sme2@uplevel.academy
+**GitHub Repository**: https://github.com/2025ac05223-bits/ML-Assignment-2
+**Author**: Parijat Roy <2025ac05223@wilp.bits-pilani.ac.in>

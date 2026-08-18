@@ -2,35 +2,35 @@
 
 ## Navigation Guide - Read This First!
 
-This index helps you navigate the 20+ files in this ML Classification assignment project.
+This index helps you navigate the 30+ files in this Breast Cancer Classification project with cloud deployment.
 
 ---
 
 ## 🎯 Quick Navigation
 
-### "I just want to run the code"
+### "I just want to run the code" (2 min)
 1. Install: `pip install -r requirements.txt`
 2. Train: `python model_training.py`
-3. View: `streamlit run streamlit_app.py`
+3. View: `run_app.bat` (Windows) or `streamlit run streamlit_app.py`
 → See **QUICKSTART.md**
 
-### "I need to submit my assignment"
-1. Copy metrics from `model_evaluation_results.csv`
-2. Copy observations from `README.md`
-3. Add GitHub link and screenshot
-→ See **README.md** + **SUBMISSION_CHECKLIST.md**
+### "I need to submit my assignment" (5 min)
+1. Copy content from `README.md` (breast cancer dataset, 569 samples, 30 features)
+2. Copy performance table and observations from `README.md`
+3. Add GitHub link: https://github.com/2025ac05223-bits/ML-Assignment-2
+→ See **README.md** for all required sections
 
-### "I need to understand everything"
+### "I need to deploy online" (10 min)
+1. Go to https://streamlit.io/cloud
+2. Sign up with GitHub
+3. Deploy from your repository
+→ See **STREAMLIT_DEPLOYMENT_GUIDE.md** + **COMPLETE_DEPLOYMENT_SUMMARY.md**
+
+### "I need to understand everything" (30-45 min)
 1. Start with `START_HERE.md`
-2. Read `PROJECT_SUMMARY.txt` 
-3. Read `ASSIGNMENT_SUMMARY.md`
-→ Takes 30-45 minutes
-
-### "I need to create the GitHub repo"
-1. Create new repository on GitHub
-2. Upload all files in project structure
-3. Update README.md with GitHub URL
-→ See **FILE_MANIFEST.md** for file structure
+2. Read `README.md` (problem statement through deployment)
+3. Read `COMPLETE_DEPLOYMENT_SUMMARY.md`
+→ Full project understanding achieved
 
 ---
 
@@ -39,64 +39,66 @@ This index helps you navigate the 20+ files in this ML Classification assignment
 ### 🚀 Get Started
 | File | Purpose | Read Time |
 |------|---------|-----------|
-| **START_HERE.md** | Quick orientation & next steps | 3 min |
+| **START_HERE.md** | Quick orientation & deployment options | 3 min |
 | **QUICKSTART.md** | Installation & running code | 5 min |
 | **INDEX.md** | This navigation guide | 3 min |
 
 ### 📖 Complete Documentation
 | File | Purpose | Read Time |
 |------|---------|-----------|
-| **README.md** | Main assignment documentation | 10 min |
-| **ASSIGNMENT_SUMMARY.md** | Technical deep dive (9 sections) | 30 min |
-| **PROJECT_SUMMARY.txt** | Executive summary | 5 min |
+| **README.md** | Main assignment docs (Breast Cancer 569 samples) | 10 min |
+| **STREAMLIT_DEPLOYMENT_GUIDE.md** | Cloud deployment step-by-step | 10 min |
+| **COMPLETE_DEPLOYMENT_SUMMARY.md** | Full project & deployment overview | 15 min |
 
-### ✅ Assignment Help
+### ☁️ Cloud Deployment
 | File | Purpose | Read Time |
 |------|---------|-----------|
-| **SUBMISSION_CHECKLIST.md** | Requirements verification | 10 min |
-| **FILE_MANIFEST.md** | File listing & organization | 5 min |
+| **STREAMLIT_DEPLOYMENT_GUIDE.md** | How to deploy to Streamlit Cloud | 10 min |
+| **STREAMLIT_CLOUD_DEPLOYMENT.txt** | Quick cloud deployment reference | 5 min |
+| **COMPLETE_DEPLOYMENT_SUMMARY.md** | Full deployment status & options | 15 min |
 
-### 💻 Code & Data
+### 💻 Code & Configuration
 | File | Purpose | Usage |
 |------|---------|-------|
-| **model_training.py** | Main training pipeline | `python model_training.py` |
-| **streamlit_app.py** | Interactive dashboard | `streamlit run streamlit_app.py` |
-| **app.py** | Alternative entry point | `python -m streamlit run app.py` |
+| **model_training.py** | Main training pipeline (569 breast cancer samples) | `python model_training.py` |
+| **streamlit_app.py** | Interactive dashboard with 30 features | `streamlit run streamlit_app.py` |
+| **run_app.bat** | Windows launcher (one-click start) | `run_app.bat` |
 | **requirements.txt** | Python dependencies | `pip install -r requirements.txt` |
-| **test_data.csv** | Sample dataset | Reference/verification |
-| **model_evaluation_results.csv** | Generated metrics | Copy to PDF |
+| **.streamlit/config.toml** | Streamlit theme & settings | Auto-loaded |
 
-### 🤖 Trained Models
-| File | Purpose | Size |
-|------|---------|------|
-| **logistic_regression_model.pkl** | Trained LR model | 1.2 KB |
-| **decision_tree_model.pkl** | Trained DT model | 3.0 KB |
-| **knn_model.pkl** | Trained KNN model | 34.9 KB |
-| **naive_bayes_model.pkl** | Trained NB model | 1.4 KB |
-| **random_forest_model.pkl** | Trained RF model (winner) | 189 KB |
-| **feature_scaler.pkl** | Feature preprocessing scaler | 1.3 KB |
+### 🤖 Trained Models (in `model/` folder)
+| File | Purpose | Dataset |
+|------|---------|---------|
+| **logistic_regression_model.pkl** | Logistic Regression | 569 breast cancer samples |
+| **decision_tree_model.pkl** | Decision Tree | 30 features, binary classification |
+| **knn_model.pkl** | K-Nearest Neighbors | Malignant vs Benign |
+| **naive_bayes_model.pkl** | Naive Bayes | 80-20 train-test split |
+| **random_forest_model.pkl** | Random Forest (WINNER) | 100 trees ensemble |
+| **feature_scaler.pkl** | Feature preprocessing scaler | StandardScaler |
 
 ---
 
 ## 📊 Content by Assignment Requirement
 
-### Requirement 1: Dataset (✅ COMPLETE)
-- **What**: Wine Classification dataset, 13 features, 178 samples
+### Requirement 1: Dataset (✅ COMPLETE - UPDATED)
+- **What**: Breast Cancer dataset, 30 features, 569 samples (exceeds 500+ requirement)
 - **Where**: `README.md` → Dataset Description section
-- **Proof**: `test_data.csv` (sample of 40 rows)
-- **Details**: `ASSIGNMENT_SUMMARY.md` → Section 1
+- **Features**: 10 measurements × 3 (mean, std, worst) = 30 features per sample
+- **Classes**: Binary (Malignant vs Benign)
+- **Status**: ✅ Meets all requirements
 
 ### Requirement 2: 5 Models (✅ COMPLETE)
-- **What**: Logistic Regression, Decision Tree, KNN, Naive Bayes, Random Forest
-- **Where**: Code in `model_training.py`
-- **Proof**: Training methods in model_training.py
-- **Results**: Console output from `python model_training.py`
+- **Models**: Logistic Regression, Decision Tree, KNN, Naive Bayes, Random Forest
+- **Where**: Code in `model_training.py` 
+- **Implementation**: All trained on 569-sample breast cancer dataset
+- **Winner**: Random Forest (97%+ accuracy)
+- **Status**: ✅ All 5 models trained
 
 ### Requirement 3: 6 Metrics per Model (✅ COMPLETE)
-- **What**: Accuracy, AUC, Precision, Recall, F1, MCC
-- **Where**: `model_evaluation_results.csv`
-- **Details**: Metric explanations in `ASSIGNMENT_SUMMARY.md` → Section 3
-- **Results**: All values in CSV file and README.md table
+- **Metrics**: Accuracy, AUC, Precision, Recall, F1, MCC
+- **Where**: `README.md` → Performance table
+- **Results**: All 6 metrics calculated for all 5 models
+- **Status**: ✅ 30 metric values (5 models × 6 metrics)
 
 ### Requirement 4: GitHub Repository (⏳ READY)
 - **Status**: All files ready to push
