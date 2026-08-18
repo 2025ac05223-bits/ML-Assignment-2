@@ -55,15 +55,79 @@ def initialize_training_pipeline():
     if models_exist:
         # Load pre-trained models
         import joblib
+        from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, recall_score, f1_score, matthews_corrcoef
+
         pipeline.feature_scaler = joblib.load(model_dir / "feature_scaler.pkl")
-        pipeline.models = {
-            'Logistic Regression': joblib.load(model_dir / "logistic_regression_model.pkl"),
-            'Decision Tree': joblib.load(model_dir / "decision_tree_model.pkl"),
-            'K-Nearest Neighbors': joblib.load(model_dir / "knn_model.pkl"),
-            'Naive Bayes': joblib.load(model_dir / "naive_bayes_model.pkl"),
-            'Random Forest': joblib.load(model_dir / "random_forest_model.pkl"),
+        pipeline.feature_train_scaled = pipeline.feature_scaler.fit_transform(pipeline.feature_train)
+        pipeline.feature_test_scaled = pipeline.feature_scaler.transform(pipeline.feature_test)
+
+        # Load models
+        models_loaded = {
+            'logistic_regression': joblib.load(model_dir / "logistic_regression_model.pkl"),
+            'decision_tree': joblib.load(model_dir / "decision_tree_model.pkl"),
+            'knn': joblib.load(model_dir / "knn_model.pkl"),
+            'naive_bayes': joblib.load(model_dir / "naive_bayes_model.pkl"),
+            'random_forest': joblib.load(model_dir / "random_forest_model.pkl"),
         }
-        pipeline.generate_results()
+
+        # Store models in pipeline
+        pipeline.models = {
+            'logistic_regression': {'model': models_loaded['logistic_regression'], 'metrics': {}},
+            'decision_tree': {'model': models_loaded['decision_tree'], 'metrics': {}},
+            'knn': {'model': models_loaded['knn'], 'metrics': {}},
+            'naive_bayes': {'model': models_loaded['naive_bayes'], 'metrics': {}},
+            'random_forest': {'model': models_loaded['random_forest'], 'metrics': {}},
+        }
+
+        # Generate metrics for each model
+        comparison_data = []
+        for model_name, model_info in pipeline.models.items():
+            model = model_info['model']
+
+            # Use scaled features for scaled models, raw features for tree-based
+            if model_name in ['logistic_regression', 'knn', 'naive_bayes']:
+                test_features = pipeline.feature_test_scaled
+            else:
+                test_features = pipeline.feature_test
+
+            predictions = model.predict(test_features)
+            prediction_probabilities = model.predict_proba(test_features)
+
+            accuracy = accuracy_score(pipeline.target_test, predictions)
+            try:
+                if len(np.unique(pipeline.target_test)) == 2:
+                    auc = roc_auc_score(pipeline.target_test, prediction_probabilities[:, 1])
+                else:
+                    auc = roc_auc_score(pipeline.target_test, prediction_probabilities, multi_class='ovr', average='weighted')
+            except:
+                auc = 0.0
+
+            precision = precision_score(pipeline.target_test, predictions, average='weighted', zero_division=0)
+            recall = recall_score(pipeline.target_test, predictions, average='weighted', zero_division=0)
+            f1 = f1_score(pipeline.target_test, predictions, average='weighted', zero_division=0)
+            mcc = matthews_corrcoef(pipeline.target_test, predictions)
+
+            metrics = {
+                'accuracy': accuracy,
+                'auc': auc,
+                'precision': precision,
+                'recall': recall,
+                'f1': f1,
+                'mcc': mcc
+            }
+            pipeline.models[model_name]['metrics'] = metrics
+
+            comparison_data.append({
+                'model_name': model_name.replace('_', ' ').title(),
+                'accuracy': accuracy,
+                'auc': auc,
+                'precision': precision,
+                'recall': recall,
+                'f1': f1,
+                'mcc': mcc
+            })
+
+        pipeline.results_dataframe = pd.DataFrame(comparison_data)
     else:
         # Train models if not pre-trained
         pipeline.train_all_models()
