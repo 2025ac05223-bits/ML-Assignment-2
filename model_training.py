@@ -265,6 +265,17 @@ class BreastCancerClassificationPipeline:
         joblib.dump(self.feature_scaler, scaler_filepath)
         print(f"Saved: {scaler_filepath}")
 
+    def save_models(self, directory_path='model'):
+        """Alias for save_models_to_disk and save_scaler_to_disk"""
+        self.save_models_to_disk(directory_path)
+        self.save_scaler_to_disk(directory_path)
+
+    def generate_results(self):
+        """Generate results dataframe if not already generated"""
+        if self.results_dataframe is None:
+            self.generate_comparison_report()
+        return self.results_dataframe
+
 
 def main():
     """Main execution function"""

@@ -35,9 +35,41 @@ st.markdown("""
 @st.cache_resource
 def initialize_training_pipeline():
     """Initialize and train all models (cached for performance)"""
+    import os
+    from pathlib import Path
+
+    # Check if pre-trained models exist
+    model_dir = Path("model")
+    models_exist = all([
+        (model_dir / "logistic_regression_model.pkl").exists(),
+        (model_dir / "decision_tree_model.pkl").exists(),
+        (model_dir / "knn_model.pkl").exists(),
+        (model_dir / "naive_bayes_model.pkl").exists(),
+        (model_dir / "random_forest_model.pkl").exists(),
+        (model_dir / "feature_scaler.pkl").exists(),
+    ])
+
     pipeline = BreastCancerClassificationPipeline(test_size=0.2, random_state=42)
     pipeline.load_and_prepare_dataset()
-    pipeline.train_all_models()
+
+    if models_exist:
+        # Load pre-trained models
+        import joblib
+        pipeline.feature_scaler = joblib.load(model_dir / "feature_scaler.pkl")
+        pipeline.models = {
+            'Logistic Regression': joblib.load(model_dir / "logistic_regression_model.pkl"),
+            'Decision Tree': joblib.load(model_dir / "decision_tree_model.pkl"),
+            'K-Nearest Neighbors': joblib.load(model_dir / "knn_model.pkl"),
+            'Naive Bayes': joblib.load(model_dir / "naive_bayes_model.pkl"),
+            'Random Forest': joblib.load(model_dir / "random_forest_model.pkl"),
+        }
+        pipeline.generate_results()
+    else:
+        # Train models if not pre-trained
+        pipeline.train_all_models()
+        pipeline.generate_comparison_report()
+        pipeline.save_models()
+
     return pipeline
 
 
