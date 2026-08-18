@@ -58,7 +58,7 @@ def initialize_training_pipeline():
         from sklearn.metrics import accuracy_score, roc_auc_score, precision_score, recall_score, f1_score, matthews_corrcoef
 
         pipeline.feature_scaler = joblib.load(model_dir / "feature_scaler.pkl")
-        pipeline.feature_train_scaled = pipeline.feature_scaler.fit_transform(pipeline.feature_train)
+        # Just transform, don't refit - use the saved scaler
         pipeline.feature_test_scaled = pipeline.feature_scaler.transform(pipeline.feature_test)
 
         # Load models
@@ -84,11 +84,13 @@ def initialize_training_pipeline():
         for model_name, model_info in pipeline.models.items():
             model = model_info['model']
 
-            # Use scaled features for scaled models, raw features for tree-based
-            if model_name in ['logistic_regression', 'knn', 'naive_bayes']:
-                test_features = pipeline.feature_test_scaled
-            else:
+            # Use scaled features for models that need scaling
+            # Decision Tree and Random Forest were trained on raw features
+            if model_name in ['decision_tree', 'random_forest']:
                 test_features = pipeline.feature_test
+            else:
+                # Logistic Regression, KNN, Naive Bayes need scaled features
+                test_features = pipeline.feature_test_scaled
 
             predictions = model.predict(test_features)
             prediction_probabilities = model.predict_proba(test_features)
